@@ -29,7 +29,6 @@ public class Movie {
     @NotNull
     private int releaseYear;
 
-    @NotNull
     private String imageUrl;
 
     @NotNull
