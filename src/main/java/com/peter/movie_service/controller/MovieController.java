@@ -14,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/movies")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class MovieController {
 
@@ -38,6 +39,14 @@ public class MovieController {
         MovieResponseDTO newMovie = movieService.saveMovie(movieRequestDTO);
 
         return ResponseEntity.ok(newMovie);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<MovieResponseDTO> updateMovie(
+            @PathVariable("id") Long id,
+            @RequestBody MovieRequestDTO movieRequestDTO) {
+        MovieResponseDTO updatedMovie = movieService.updateMovie(id, movieRequestDTO);
+        return ResponseEntity.ok(updatedMovie);
     }
 
     @DeleteMapping("/{id}")
