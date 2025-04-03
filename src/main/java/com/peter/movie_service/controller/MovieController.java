@@ -16,6 +16,7 @@ import java.util.Map;
 @RequestMapping("/movies")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")  // Allow requests from anywhere
 public class MovieController {
 
     private final MovieService movieService;
