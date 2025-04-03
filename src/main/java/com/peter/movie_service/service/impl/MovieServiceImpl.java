@@ -39,6 +39,22 @@ public class MovieServiceImpl implements MovieService {
         return MovieMapper.toDTO(newMovie);
     }
 
+    public MovieResponseDTO updateMovie(Long id, MovieRequestDTO movieRequestDTO) {
+        return movieRepository.findById(id)
+                .map(existingMovie -> {
+                    existingMovie.setTitle(movieRequestDTO.getTitle());
+                    existingMovie.setDirector(movieRequestDTO.getDirector());
+                    existingMovie.setGenre(movieRequestDTO.getGenre());
+                    existingMovie.setReleaseYear(movieRequestDTO.getReleaseYear());
+                    existingMovie.setImageUrl(movieRequestDTO.getImageUrl());
+
+                    Movie updatedMovie = movieRepository.save(existingMovie);
+
+                    return MovieMapper.toDTO(updatedMovie);
+                })
+                .orElseThrow(() -> new MovieNotFoundException("Movie with id: " + id + " not found!"));
+    }
+
     public String deleteMovie(Long id) {
         if (movieRepository.existsById(id)) {
             movieRepository.deleteById(id);
